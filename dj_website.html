@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DJ Prime — Portfolio</title>
+  <style>
+    :root{--bg:#0b0710;--gold:#ffb84d;--accent:#ff6a00;--muted:#cfcfcf}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:#fff}
+    header{padding:28px;text-align:center;background:linear-gradient(90deg,#3a0700,#1a0f0a);border-bottom:1px solid rgba(255,255,255,0.04)}
+    header h1{margin:0;font-size:44px;letter-spacing:2px;color:var(--gold)}
+    .tagline{color:var(--muted);font-size:16px;margin-top:6px}
+    .container{max-width:1100px;margin:30px auto;padding:0 20px}
+    h2{font-size:26px;margin:8px 0 12px;border-bottom:1px solid rgba(255,255,255,0.04);padding-bottom:8px;color:var(--gold)}
+    .about-text{line-height:1.6;font-size:17px;color:#e9e2d8}
+    .about-row{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center}
+    .about-photo{width:100%;height:320px;border-radius:12px;background:#222 center/cover no-repeat;}
+    .about-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    #slideshow{position:relative;width:100%;height:360px;border-radius:12px;overflow:hidden;background:#000;margin-top:18px}
+    #slide-track{display:flex;height:100%;transition:transform 0.6s ease}
+    .slide-wrap{flex:0 0 100%;position:relative;height:100%}
+    .slide-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+    .caption{position:absolute;left:0;right:0;bottom:0;padding:12px 16px;background:linear-gradient(180deg,rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%);color:#fff;font-size:18px}
+    .control-btn{position:absolute;top:50%;transform:translateY(-50%);background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:8px;cursor:pointer;opacity:0.9}
+    #prev{left:12px}
+    #next{right:12px}
+    .book-btn{display:inline-block;background:var(--accent);color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:700;margin-top:12px}
+    footer{text-align:center;padding:26px 12px;color:var(--muted);margin-top:28px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>DJ Prime</h1>
+    <div class="tagline">High-energy DJ • Clubs • Private Events • Venues</div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+      <div class="about-row">
+        <div>
+          <h2>About Me</h2>
+          <p class="about-text">DJ Prime brings high-energy, genre-blending sets...</p>
+          <a class="book-btn" href="mailto:djprime998@gmail.com">BOOK ME NOW</a>
+        </div>
+        <div class="about-photo"><img src="IMG_7609.png" alt=""></div>
+      </div>
+    </section>
+
+    <section id="venues">
+      <h2>Venues I've Performed At</h2>
+      <div id="slideshow">
+        <div id="slide-track"></div>
+        <button id="prev" class="control-btn">❮</button>
+        <button id="next" class="control-btn">❯</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>© <span id="year"></span> DJ Prime</footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const images = [
+      "DVW.png","GOLF CLUB.png","img_2737.png","KENNEDYGROVE.png","MOON.png",
+      "ROH Davis.png","SPSV.png","STUDY HALL.png","Suisn veterans.png",
+      "Sunrise EVC.png","Webster Aprtm.png"
+    ];
+
+    const track = document.getElementById("slide-track");
+    images.forEach(src=>{
+      const w=document.createElement("div"); w.className="slide-wrap";
+      const i=document.createElement("img"); i.src=src;
+      const c=document.createElement("div"); c.className="caption";
+      w.appendChild(c); w.appendChild(i); track.appendChild(w);
+    });
+
+    let index=0; function show(){ track.style.transform=`translateX(-${index*100}%)`; }
+    document.getElementById("next").onclick=()=>{ index=(index+1)%images.length; show(); }
+    document.getElementById("prev").onclick=()=>{ index=(index-1+images.length)%images.length; show(); }
+    setInterval(()=>{ index=(index+1)%images.length; show(); },5000);
+    show();
+  </script>
+</body>
+</html>
